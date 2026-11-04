@@ -1,0 +1,12 @@
+{
+  "version": "0.17.0",
+  "latestVersion": "0.17.0",
+  "date": "2026-11-04",
+  "platform": "windows-x64",
+  "bytes": 14181888,
+  "installerUrl": "https://auric-code.dressygrass3.chatgpt.site/downloads/Auric-Code-Setup-0.17.0.exe",
+  "sha256": "4372e4f2e29f4dfd6a7c8ac79afeb82514082733daf7087d285b65f98ab74124",
+  "installerSha256": "4372e4f2e29f4dfd6a7c8ac79afeb82514082733daf7087d285b65f98ab74124",
+  "workerVersion": "0.17.0",
+  "notes": "Correcciones de rendimiento y calidad, Guardián 3D, razonamiento desplegable, preguntas pendientes y evaluaciones centrales."
+}
