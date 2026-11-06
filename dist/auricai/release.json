@@ -1,0 +1,16 @@
+{
+  "version": "0.1.0",
+  "channel": "technical-preview",
+  "firebaseConfigured": false,
+  "gatewayConfigured": false,
+  "windows": {
+    "file": "AuricAI_0.1.0_x64-setup.exe",
+    "sha256": "f9802457ff31600e43adc0ba4ccfdba1e42d3c24270f435755fcb2b584461e2e",
+    "bytes": 2163721
+  },
+  "android": {
+    "file": "AuricAI-0.1.0-Android-ARM64-test.apk",
+    "sha256": "b327a2708f10237831d7731bca0cbf0f5dd608433da04e5ff814d0e27b061381",
+    "bytes": 11829498
+  }
+}
