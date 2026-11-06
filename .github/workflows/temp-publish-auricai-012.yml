@@ -1,0 +1,46 @@
+name: Publish AuricAI 0.1.2 preview installers once
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/temp-publish-auricai-012.yml']
+permissions:
+  contents: write
+jobs:
+  transfer:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download and check native 0.1.2 installers
+        shell: bash
+        env:
+          WIN_ZIP: 'https://sdmntprbrazilsouth.oaiusercontent.com/files/00000000-7050-820e-9d4c-512c3289ec4e/raw?se=2026-11-06T20%3A20%3A53Z&sp=r&sv=2026-02-06&sr=b&scid=532c5e47-7e6c-5488-856b-5634477f0982&skoid=68f37fa7-4e08-478b-93f3-c72d563a0ab3&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-11-06T18%3A28%3A01Z&ske=2026-11-07T18%3A28%3A01Z&sks=b&skv=2026-02-06&sig=rhq/wyZKYfFlhg2EkPVfOWpevGjbZ4QdgFTvFHkQLOA%3D'
+          APK_ZIP: 'https://sdmntprbrazilsouth.oaiusercontent.com/files/00000000-3470-820e-8b9a-4b50170911d7/raw?se=2026-11-06T20%3A20%3A56Z&sp=r&sv=2026-02-06&sr=b&scid=b1b82c49-a95d-52e0-aca6-cb057b0cf97f&skoid=68f37fa7-4e08-478b-93f3-c72d563a0ab3&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-11-06T18%3A17%3A03Z&ske=2026-11-07T18%3A17%3A03Z&sks=b&skv=2026-02-06&sig=Nz8zOTnRuLJYRa0BH1AHaEAxR3vcdEuQlr7c9TaqHNA%3D'
+        run: |
+          set -euo pipefail
+          mkdir -p dist/auricai/downloads
+          curl -fLsS --retry 2 --max-time 180 "$WIN_ZIP" -o /tmp/auricai-win.zip
+          curl -fLsS --retry 2 --max-time 180 "$APK_ZIP" -o /tmp/auricai-android.zip
+          unzip -jo /tmp/auricai-win.zip -d dist/auricai/downloads/
+          unzip -jo /tmp/auricai-android.zip -d dist/auricai/downloads/
+          cd dist/auricai/downloads
+          echo '882cd12fb4431763c71d8fb228c46aa6d98f8e1a5e9d074c0990763a9d6dae9a  AuricAI_0.1.2_x64-setup.exe' | sha256sum -c -
+          echo '4bfa26170e023a7dd2e90ee6a98df6b8a02a07ee6f58c140d806491619608886  AuricAI-0.1.2-Android-ARM64-test.apk' | sha256sum -c -
+      - name: Write public 0.1.2 release manifest
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          folder=Path('dist/auricai/downloads')
+          known={'windows':('AuricAI_0.1.2_x64-setup.exe','882cd12fb4431763c71d8fb228c46aa6d98f8e1a5e9d074c0990763a9d6dae9a'),
+                 'android':('AuricAI-0.1.2-Android-ARM64-test.apk','4bfa26170e023a7dd2e90ee6a98df6b8a02a07ee6f58c140d806491619608886')}
+          data={'version':'0.1.2','channel':'technical-preview','firebaseConfigured':False,'gatewayConfigured':False}
+          for key,(name,sha) in known.items():
+            data[key]={'file':name,'sha256':sha,'bytes':(folder/name).stat().st_size}
+          Path('dist/auricai/release.json').write_text(json.dumps(data,indent=2)+'\n')
+          PY
+      - name: Publish while retaining installers of previous versions
+        run: |
+          git config user.name 'auric-build[bot]'
+          git config user.email 'auric-build[bot]@users.noreply.github.com'
+          git add dist/auricai/downloads/ dist/auricai/release.json
+          git diff --cached --quiet || (git commit -m 'Publish AuricAI 0.1.2 Windows EXE and signed Android APK' && git push)
