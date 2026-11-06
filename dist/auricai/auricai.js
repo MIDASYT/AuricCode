@@ -4,6 +4,8 @@ try{
   const response=await fetch('./release.json',{cache:'no-store'});
   if(!response.ok)throw Error('No hay manifiesto publicado');
   const manifest=await response.json();
+  if(!/^\d+\.\d+\.\d+$/.test(String(manifest.version||'')))throw Error('Invalid version');
+  document.querySelectorAll('[data-release-version]').forEach(el=>{el.textContent=manifest.version;});
   const files=[];
   for(const platform of ['windows','android']){
     const file=manifest[platform];
