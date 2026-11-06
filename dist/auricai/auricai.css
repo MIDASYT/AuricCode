@@ -21,3 +21,12 @@
 .ai-ribbon span:before{color:#efbd5b}
 @media(max-width:720px){.hero-brand-logo{width:160px}.scene-content{min-height:240px}}
 @media(max-width:480px){.hero-brand-logo{width:144px}.scene-content{min-height:224px}.brand-logo{width:30px;height:30px}}
+
+/* Preserved native release history, aligned with AuricCode's download section */
+.ai-versions{margin-top:22px;padding:18px 20px;border:1px solid var(--line);background:#0a1722;border-radius:5px;color:var(--muted);font-size:12px;line-height:1.8}
+.ai-versions summary{cursor:pointer;color:var(--text);font-size:13px;font-weight:650}
+.ai-versions summary:hover{color:var(--gold)}
+.ai-versions p{max-width:760px}
+.ai-versions>div{display:flex;align-items:center;flex-wrap:wrap;gap:12px 22px}
+.ai-versions a{color:var(--gold);text-decoration:none;border-bottom:1px solid transparent}
+.ai-versions a:hover{border-bottom-color:var(--gold)}
