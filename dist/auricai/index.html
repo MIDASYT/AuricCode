@@ -42,8 +42,8 @@
 </div>
 </section>
 <section class="ai-status-shell" id="estado"><div class="wrap ai-status">
-<div><p class="eyebrow">Estado de esta entrega</p><h2 id="release-heading">Instaladores reales.<br>Integraciones pendientes.</h2></div>
-<div><p id="release-detail">La versión 0.1.0 es una <strong>prueba técnica</strong> de AuricAI. Windows y Android se compilaron de forma nativa, pero el inicio de sesión y las respuestas de IA requieren activar Firebase y el gateway de Cloudflare en la compilación final.</p><p>No se presenta esta versión como servicio terminado. El control remoto de AuricCode y la sincronización de sus chats no están activos en esta prueba.</p></div>
+<div><p class="eyebrow">Vista previa 0.1.2</p><h2 id="release-heading">Conoce la interfaz.<br>Prueba AuricAI.</h2></div>
+<div><p id="release-detail">La versión <span data-release-version>0.1.2</span> permite <strong>explorar la interfaz sin cuenta</strong> y probar el chat con mensajes de demostración. No se trata de respuestas reales de IA.</p><p>El registro, las conversaciones con modelos y AuricCode Remote necesitan que se activen los servicios correspondientes. Esta edición es una vista previa de diseño, no una versión comercial terminada.</p></div>
 </div></section>
 <section class="wrap ai-download" id="descargar">
 <div class="ai-download-title"><p class="eyebrow">Instaladores de prueba <span data-release-version>0.1.0</span></p><h2>Descarga la aplicación.</h2><p>Instaladores nativos descargables directamente desde GitHub Pages. No hace falta acceder al repositorio privado.</p></div>
@@ -57,14 +57,15 @@
 <article class="download-box">
 <div class="platform-heading"><img src="assets/android.svg" class="platform-art" alt="" width="46" height="46"><div><h3>Android</h3><p>ARM64 · APK de prueba firmado</p></div></div>
 <a class="button primary" data-download="android" href="downloads/AuricAI-0.1.0-Android-ARM64-test.apk" download>Descargar APK <span aria-hidden="true">↓</span></a>
-<p class="download-note">Android 8.0 o posterior. Usa firma temporal de prueba; una actualización con otra firma puede exigir desinstalar esta versión.</p>
+<p class="download-note">Android 8.0 o posterior. Esta vista previa utiliza firma de pruebas: al instalar otra versión puede ser necesario desinstalar primero la anterior.</p>
 <details><summary>SHA-256 del APK</summary><code data-hash="android">Consultando…</code></details>
 </article>
 </div>
 <p class="downloads-warning" id="downloads-status" role="status">Verificando disponibilidad de los archivos publicados…</p>
+<details class="ai-versions"><summary>Versiones anteriores</summary><p>Si necesitas comparar la evolución del diseño, puedes recuperar los instaladores de prueba antiguos. Conservan firmas Android distintas.</p><div><a href="downloads/AuricAI_0.1.1_x64-setup.exe">Windows 0.1.1</a><a href="downloads/AuricAI-0.1.1-Android-ARM64-test.apk">Android 0.1.1</a><a href="downloads/AuricAI_0.1.0_x64-setup.exe">Windows 0.1.0</a><a href="downloads/AuricAI-0.1.0-Android-ARM64-test.apk">Android 0.1.0</a></div></details>
 </section>
 <section class="wrap ai-faq" id="preguntas"><div><p class="eyebrow">Antes de instalar</p><h2>Preguntas habituales.</h2></div><div class="faq-list">
-<details><summary>¿Ya puedo iniciar sesión y conversar con la IA?</summary><p>Esta compilación aún no tiene activada la conexión real con Firebase y Cloudflare. Puede instalarse para comprobar la base de la aplicación; se publicará otra compilación cuando esas integraciones se configuren y prueben.</p></details>
+<details><summary>¿Puedo probar la interfaz sin registrarme?</summary><p>Sí. En la versión de prueba 0.1.2 puedes seleccionar «Explorar la interfaz sin cuenta», escribir y ver una conversación de demostración y las animaciones. La IA real y las cuentas aún necesitan activación; el inicio de sesión será obligatorio en la versión conectada.</p></details>
 <details><summary>¿AuricAI es una página web?</summary><p>No. Las descargas son un instalador EXE nativo para Windows y un APK nativo para Android, hechos con Tauri 2.</p></details>
 <details><summary>¿AuricAI maneja mi ordenador?</summary><p>El chat general no tiene acceso a la terminal ni al sistema. Auric Remote permitirá vincular el AuricCode de tu PC con aprobación expresa desde el propio ordenador, una función todavía en desarrollo.</p></details>
 <details><summary>¿Es gratuita?</summary><p>La aplicación se propone como gratuita, con cupos de uso y disponibilidad sujetos también a los límites de los proveedores compartidos. La cuota propia de AuricAI será distinta de la de AuricCode.</p></details>
