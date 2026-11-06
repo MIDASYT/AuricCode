@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title"><title id="title">Android</title>
+<g fill="none" stroke="#efbd5b" stroke-linecap="round" stroke-width="3.5" stroke-linejoin="round">
+<path d="m19 11-5-7M45 11l5-7"/>
+<path d="M10 27a22 22 0 0 1 44 0z" fill="#efbd5b"/>
+<path d="M10 31h44v13c0 2.8-2.2 5-5 5H15c-2.8 0-5-2.2-5-5z" fill="#efbd5b"/>
+<path d="M17 49v10M47 49v10M4 31v16M60 31v16"/>
+</g>
+<g fill="#08131f"><circle cx="23" cy="20" r="2.4"/><circle cx="41" cy="20" r="2.4"/></g>
+</svg>
