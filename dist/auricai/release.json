@@ -1,16 +1,16 @@
 {
-  "version": "0.1.1",
+  "version": "0.1.2",
   "channel": "technical-preview",
   "firebaseConfigured": false,
   "gatewayConfigured": false,
   "windows": {
-    "file": "AuricAI_0.1.1_x64-setup.exe",
-    "sha256": "a095dd703b30f2a71abed22e09bbdf9a051ce86464c16360dc0f2ebfec2b0fb4",
-    "bytes": 2254623
+    "file": "AuricAI_0.1.2_x64-setup.exe",
+    "sha256": "882cd12fb4431763c71d8fb228c46aa6d98f8e1a5e9d074c0990763a9d6dae9a",
+    "bytes": 2755282
   },
   "android": {
-    "file": "AuricAI-0.1.1-Android-ARM64-test.apk",
-    "sha256": "44cd08b5050bd564cbe302e13f945c21f7532ca5123e33d7f3e7c96769609347",
-    "bytes": 11895034
+    "file": "AuricAI-0.1.2-Android-ARM64-test.apk",
+    "sha256": "4bfa26170e023a7dd2e90ee6a98df6b8a02a07ee6f58c140d806491619608886",
+    "bytes": 12402938
   }
 }
