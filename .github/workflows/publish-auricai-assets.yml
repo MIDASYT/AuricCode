@@ -29,7 +29,7 @@ jobs:
           unzip -j -o /tmp/windows.zip -d dist/auricai/downloads/
           unzip -j -o /tmp/android.zip -d dist/auricai/downloads/
           cd dist/auricai/downloads
-          echo "1cbb64ddb27022b23232a790bf9c86059bdc3daf00345db4f93fefa80f681715  AuricAI_0.1.0_x64-setup.exe" | sha256sum --check
+          echo "f9802457ff31600e43adc0ba4ccfdba1e42d3c24270f435755fcb2b584461e2e  AuricAI_0.1.0_x64-setup.exe" | sha256sum --check
           echo "b327a2708f10237831d7731bca0cbf0f5dd608433da04e5ff814d0e27b061381  AuricAI-0.1.0-Android-ARM64-test.apk" | sha256sum --check
       - name: Escribir manifiesto de descargas
         run: |
@@ -40,7 +40,7 @@ jobs:
           def item(name, hash):
               return {'file':name,'sha256':hash,'bytes':(d/name).stat().st_size}
           data={'version':'0.1.0','channel':'technical-preview','firebaseConfigured':False,'gatewayConfigured':False,
-              'windows':item('AuricAI_0.1.0_x64-setup.exe','1cbb64ddb27022b23232a790bf9c86059bdc3daf00345db4f93fefa80f681715'),
+              'windows':item('AuricAI_0.1.0_x64-setup.exe','f9802457ff31600e43adc0ba4ccfdba1e42d3c24270f435755fcb2b584461e2e'),
               'android':item('AuricAI-0.1.0-Android-ARM64-test.apk','b327a2708f10237831d7731bca0cbf0f5dd608433da04e5ff814d0e27b061381')}
           Path('dist/auricai/release.json').write_text(json.dumps(data,indent=2)+'\n')
           PY
