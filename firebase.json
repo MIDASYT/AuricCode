@@ -5,7 +5,13 @@
     "ignore": [
       "**/.*",
       "**/node_modules/**",
-      "auricai/**"
+      "auricai/**",
+      "downloads/**",
+      "**/*.exe",
+      "**/*.apk",
+      "**/*.dll",
+      "**/*.zip",
+      "install.ps1"
     ],
     "headers": [
       {
