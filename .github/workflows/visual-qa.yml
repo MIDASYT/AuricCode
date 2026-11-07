@@ -1,0 +1,50 @@
+name: AuricCode website - real desktop and Android visual checks
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'index.html'
+      - 'dist/index.html'
+      - 'dist/style.css'
+      - 'style.css'
+      - 'assets/**'
+      - 'dist/assets/**'
+      - '.github/workflows/visual-qa.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  screenshots:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '22' }
+      - name: Capture real browser screens and verify website navigation
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm install --no-save --no-audit --no-fund playwright
+          python3 -m http.server 8999 --directory dist --bind 127.0.0.1 >/tmp/auric-site.log 2>&1 &
+          mkdir -p screenshots
+          node --input-type=module <<'JS'
+          import {chromium} from 'playwright';
+          const browser=await chromium.launch({executablePath:'/usr/bin/google-chrome',args:['--no-sandbox','--disable-dev-shm-usage']});
+          const checks=["#descargar","#instalacion","img[src=\"assets/windows.svg\"]"];
+          for(const item of [{name:'desktop',width:1440,height:900,mobile:false},{name:'android',width:390,height:844,mobile:true}]){
+            const page=await browser.newPage({viewport:{width:item.width,height:item.height},isMobile:item.mobile,hasTouch:item.mobile,deviceScaleFactor:1});
+            await page.goto('http://127.0.0.1:8999/',{waitUntil:'networkidle'});
+            for(const selector of checks)if(!await page.locator(selector).count())throw Error('Missing element '+selector);
+            const images=await page.locator('img').evaluateAll(nodes=>nodes.filter(i=>!i.complete||i.naturalWidth===0).map(i=>i.getAttribute('src')?.slice(0,100)));
+            if(images.length)throw Error('Broken images: '+JSON.stringify(images));
+            if(!await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2))throw Error('Horizontal overflow '+item.name);
+            await page.screenshot({path:'screenshots/AuricCode-'+item.name+'-website.png',fullPage:true});
+            await page.close();
+          }
+          await browser.close();
+          JS
+      - uses: actions/upload-artifact@v4
+        with:
+          name: AuricCode-verified-website-screenshots
+          path: screenshots/
+          retention-days: 30
