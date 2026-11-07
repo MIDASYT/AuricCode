@@ -1,12 +1,12 @@
 {
-  "version": "0.17.0",
-  "latestVersion": "0.17.0",
+  "version": "0.18.0",
+  "latestVersion": "0.18.0",
   "date": "2026-11-04",
   "platform": "windows-x64",
-  "bytes": 14181888,
-  "installerUrl": "https://midasyt.github.io/AuricCode/downloads/Auric-Code-Setup-0.17.0.exe",
-  "sha256": "4372e4f2e29f4dfd6a7c8ac79afeb82514082733daf7087d285b65f98ab74124",
-  "installerSha256": "4372e4f2e29f4dfd6a7c8ac79afeb82514082733daf7087d285b65f98ab74124",
+  "bytes": 14222848,
+  "installerUrl": "https://github.com/MIDASYT/AuricCode/releases/download/v0.18.0/Auric-Code-Setup-0.18.0.exe",
+  "sha256": "710f60efaec6a7acac1f1f80e1fe18c8a0ec7cac0db67897ffdcbd6ba005307e",
+  "installerSha256": "710f60efaec6a7acac1f1f80e1fe18c8a0ec7cac0db67897ffdcbd6ba005307e",
   "workerVersion": "0.17.0",
-  "notes": "Correcciones de rendimiento y calidad, Guardián 3D, razonamiento desplegable, preguntas pendientes y evaluaciones centrales."
+  "notes": "Cuenta Auric opcional, sincronización privada por cuenta y Remote con autorización desde PC."
 }
