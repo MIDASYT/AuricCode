@@ -1,0 +1,22 @@
+{
+  "hosting": {
+    "site": "auric-code",
+    "public": "dist",
+    "ignore": [
+      "**/.*",
+      "**/node_modules/**",
+      "auricai/**"
+    ],
+    "headers": [
+      {
+        "source": "/release.json",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "no-store"
+          }
+        ]
+      }
+    ]
+  }
+}
