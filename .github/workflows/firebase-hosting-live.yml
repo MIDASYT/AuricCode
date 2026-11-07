@@ -1,11 +1,5 @@
 name: AuricCode — publish live website to shared Firebase project
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'dist/**'
-      - 'firebase.json'
-      - '.github/workflows/firebase-hosting-live.yml'
   workflow_dispatch:
 permissions:
   contents: read
@@ -21,10 +15,23 @@ jobs:
         shell: bash
         run: |
           if [[ -z "$PROJECT_ID" || "$HAS_HOSTING_CREDENTIALS" != "true" ]]; then
-            echo "::notice::Shared Firebase Hosting not connected. Website source is committed but not published to web.app."
+            echo "::error::Shared Firebase Hosting is not configured; this cannot be marked deployed." >&2
+            exit 1
           fi
+      - name: Gate Hosting on published stable AuricCode 0.18 or newer
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json
+          d=json.load(open('dist/release.json'))
+          version=d.get('version','0.0.0')
+          if tuple(map(int,version.split('.'))) < (0,18,0):
+              raise SystemExit('Stable AuricCode 0.18 not yet published; no Firebase Hosting deployment.')
+          if not d.get('installerUrl','').startswith('https://github.com/MIDASYT/AuricCode/releases/download/'):
+              raise SystemExit('Installer is not published as an official GitHub Release')
+          PY
       - name: Deploy validated site to Firebase live channel
-        if: env.PROJECT_ID != '' && env.HAS_HOSTING_CREDENTIALS == 'true'
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           firebaseServiceAccount: ${{ secrets.FIREBASE_HOSTING_SERVICE_ACCOUNT }}
