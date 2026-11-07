@@ -6,3 +6,15 @@
 
 .hero-actions .text-link{display:inline-flex;align-items:center;justify-content:center;min-height:54px;padding:15px 20px;border:1px solid #8492a0;border-radius:2px;background:#102030a0;font-size:14px;font-weight:600;line-height:1.4}.hero-actions .text-link:hover{border-color:var(--gold)}
 @media(max-width:480px){.hero-actions .text-link{width:100%}}
+
+/* Auric family unified installation guide */
+.install-guide{padding-block:82px 96px;border-bottom:1px solid #344a5a70}
+.install-guide .section-heading{max-width:800px}
+.install-steps{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;counter-reset:auric-install;list-style:none;margin:30px 0 0;padding:0}
+.install-steps li{position:relative;padding:24px 25px 24px 75px;min-height:130px;border:1px solid var(--line);border-radius:7px;background:#102335;counter-increment:auric-install}
+.install-steps li:before{content:counter(auric-install,decimal-leading-zero);position:absolute;left:24px;top:25px;color:var(--gold);font-size:20px;font-weight:700}
+.install-steps strong{display:block;font-size:14px;margin-bottom:8px;color:var(--text)}
+.install-steps span{display:block;font-size:12px;color:var(--muted);line-height:1.7}
+.nav .sibling-nav{color:var(--gold)}
+@media(max-width:920px){.nav .sibling-nav{display:none}}
+@media(max-width:700px){.install-steps{grid-template-columns:1fr}.install-guide{padding-block:60px}.install-steps li{min-height:unset}}
