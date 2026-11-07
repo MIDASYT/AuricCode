@@ -17,7 +17,7 @@ for (const button of tabs) {
 let publishedHash = '';
 fetch('./release.json', {cache:'no-cache'}).then(response => {if(!response.ok)throw Error('manifest');return response.json();}).then(release => {
   const version = String(release.version || ''), hash = String(release.sha256 || ''), url = new URL(release.installerUrl || '', location.href);
-  if (!/^\d+\.\d+\.\d+$/.test(version) || !/^[a-f0-9]{64}$/i.test(hash) || url.protocol !== 'https:' || url.origin !== 'https://auric-code.dressygrass3.chatgpt.site' || !url.pathname.endsWith('.exe')) throw Error('manifest');
+  if (!/^\d+\.\d+\.\d+$/.test(version) || !/^[a-f0-9]{64}$/i.test(hash) || url.protocol !== 'https:' || (url.origin !== location.origin && url.origin !== 'https://auric-code.dressygrass3.chatgpt.site') || !url.pathname.endsWith('.exe')) throw Error('manifest');
   document.querySelectorAll('[data-version]').forEach(el => el.textContent = version); document.querySelectorAll('[data-download]').forEach(link => link.href = url.href);
   publishedHash = hash; document.querySelector('#download-hash').textContent = hash; document.querySelector('#copy-hash').disabled = false;
 }).catch(() => { document.querySelector('#download-hash').textContent = 'La huella no se pudo cargar. Vuelve a intentarlo o consulta el archivo SHA-256 junto al instalador.'; });
