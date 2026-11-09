@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "site": "auric-code",
+    "site": "auric-code-web",
     "public": "dist",
     "ignore": [
       "**/.*",
@@ -11,7 +11,11 @@
       "**/*.apk",
       "**/*.dll",
       "**/*.zip",
-      "install.ps1"
+      "install.ps1",
+      "archivo/**",
+      "qa/**",
+      "README.md",
+      ".github/**"
     ],
     "headers": [
       {
@@ -23,6 +27,7 @@
           }
         ]
       }
-    ]
+    ],
+    "cleanUrls": true
   }
 }

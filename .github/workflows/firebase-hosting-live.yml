@@ -18,18 +18,21 @@ jobs:
             echo "::error::Shared Firebase Hosting is not configured; this cannot be marked deployed." >&2
             exit 1
           fi
-      - name: Gate Hosting on published stable AuricCode 0.18 or newer
+      - name: Verify website content and independent download status
         shell: bash
         run: |
           set -euo pipefail
           python3 - <<'PY'
           import json
-          d=json.load(open('dist/release.json'))
-          version=d.get('version','0.0.0')
-          if tuple(map(int,version.split('.'))) < (0,18,0):
-              raise SystemExit('Stable AuricCode 0.18 not yet published; no Firebase Hosting deployment.')
-          if not d.get('installerUrl','').startswith('https://github.com/MIDASYT/AuricCode/releases/download/'):
-              raise SystemExit('Installer is not published as an official GitHub Release')
+          from pathlib import Path
+          base=Path('dist/')
+          assert (base/'index.html').exists() and (base/'instalar.html').exists()
+          assert (base/'style.css').exists() and (base/'app.js').exists()
+          manifest=json.loads((base/'release.json').read_text())
+          assert isinstance(manifest.get('version'),str)
+          # La web sí puede publicarse antes que el instalador; no anunciar descargas privadas.
+          if manifest.get('publicDownloads') is not True:
+              print('Sitio publicable con descargas suspendidas hasta canal público verificable')
           PY
       - name: Deploy validated site to Firebase live channel
         uses: FirebaseExtended/action-hosting-deploy@v0
@@ -43,6 +46,6 @@ jobs:
         run: |
           set -euo pipefail
           html="$(mktemp)"
-          response="$(curl -L -sS --max-time 30 -o "$html" -w '%{http_code}' 'https://auric-code.web.app/')"
+          response="$(curl -L -sS --max-time 30 -o "$html" -w '%{http_code}' 'https://auric-code-web.web.app/')"
           test "$response" = 200
           grep -qi 'AuricCode' "$html"
