@@ -1,16 +1,23 @@
 'use strict';
-(async()=>{const link=document.querySelector('[data-platform="windows"]'),status=document.getElementById('downloadStatus'),hash=document.getElementById('download-hash');
- function disabled(msg){if(link){link.removeAttribute('href');link.setAttribute('aria-disabled','true');link.textContent='Descarga no publicada';}if(status)status.textContent=msg;}
- disabled('El instalador aún no dispone de una descarga pública verificada.');
- try{const response=await fetch('release.json',{cache:'no-store'});if(!response.ok)throw Error('sin release');const r=await response.json();
- if(!/^\d+\.\d+\.\d+$/.test(r.version||''))throw Error('versión inválida');document.querySelectorAll('[data-version]').forEach(x=>x.textContent=r.version);
- // El repositorio de trabajo es privado; nunca activar sus Releases como enlace público.
- if(r.publicDownloads!==true || typeof r.publicDownloadUrl!=='string')return;
- const u=new URL(r.publicDownloadUrl);const valid=u.protocol==='https:' && u.pathname.endsWith('.exe') &&
- ((u.hostname==='github.com'&&/^\/MIDASYT\/[^/]+\/releases\/download\//.test(u.pathname)&&!/^\/MIDASYT\/(AuricCode|AuricCode-Web|AuricAI|AuricAI-Web)\//.test(u.pathname))||(u.hostname==='storage.googleapis.com'&&u.pathname.startsWith('/auric-')));
- if(!valid||!/^[a-f0-9]{64}$/i.test(r.sha256||''))throw Error('enlace no verificado');
- link.href=u.href;link.removeAttribute('aria-disabled');link.textContent='Descargar para Windows ↓';
- if(hash)hash.textContent='SHA-256: '+r.sha256;
- if(status)status.textContent='Comprueba la integridad del instalador antes de abrirlo.';
- }catch(e){disabled('No se pudo verificar una descarga pública de AuricCode.');}
+(async function auricCodeRelease(){
+  const link=document.querySelector('a[data-platform="windows"]');
+  const status=document.getElementById('downloadStatus');
+  const hash=document.getElementById('download-hash');
+  function unavailable(message){if(link){link.removeAttribute('href');link.setAttribute('aria-disabled','true');link.textContent='Descarga no disponible';}if(status)status.textContent=message;}
+  unavailable('Comprobando versión disponible…');
+  try{
+    const response=await fetch('./release.json',{cache:'no-store'});
+    if(!response.ok)throw Error('Manifiesto inaccesible');
+    const release=await response.json();
+    if(release.publicDownloads!==true || !/^\d+\.\d+\.\d+$/.test(release.version||''))throw Error('Versión no publicada');
+    const file='Auric-Code-Setup-'+release.version+'.exe';
+    const expected='https://github.com/MIDASYT/AuricCode-Web/releases/download/v'+release.version+'/'+file;
+    if(release.installerUrl!==expected || release.publicDownloadUrl!==expected || !/^[a-f0-9]{64}$/i.test(release.sha256||'') || !Number.isSafeInteger(release.bytes) || release.bytes<100000)throw Error('Publicación inválida');
+    link.href=expected;
+    link.removeAttribute('aria-disabled');
+    link.textContent='Descargar EXE · '+release.version+' ↓';
+    document.querySelectorAll('[data-version]').forEach(el=>el.textContent=release.version);
+    if(hash)hash.textContent='SHA-256: '+release.sha256;
+    if(status)status.textContent='Descarga oficial de AuricCode '+release.version+' disponible. Las versiones posteriores en desarrollo todavía no son publicaciones estables.';
+  }catch(error){unavailable('No se pudo comprobar la descarga oficial.');}
 })();

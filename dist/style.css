@@ -32,3 +32,11 @@
 
 /* AuricCode, una sola plataforma en descarga. */
 .download-grid.one{grid-template-columns:minmax(280px,420px);justify-content:center}.hero-code .hero-image{position:absolute;right:2%;top:23%;width:56%;height:auto;max-height:480px;object-fit:contain;opacity:.7;border:1px solid #547085;box-shadow:0 35px 90px #0009}.hero-code .hero-copy{position:relative;z-index:2}.hero-code .hero-shade{background:linear-gradient(90deg,#06101bf6,#08131ff0 33%,#08131f77 76%),linear-gradient(0deg,#08131f,transparent 40%)}@media(max-width:850px){.hero-code .hero-image{width:88%;right:-20%;top:30%;opacity:.22}}@media(max-width:520px){.hero-code .hero-image{width:130%;right:-45%;top:30%;opacity:.12}}
+
+
+/* Capturas nativas: una debajo de otra, manteniendo su proporción original. */
+.screenshot-stack{display:grid;grid-template-columns:minmax(0,1fr);gap:28px;max-width:1040px;margin-inline:auto}
+.screenshot-item{min-width:0;margin:0;padding:12px;background:#0b1722;border:1px solid var(--line);display:block}
+.screenshot-item img{display:block;width:100%;max-width:100%;height:auto;max-height:none;aspect-ratio:auto;object-fit:contain}
+.screenshot-item figcaption{padding:12px 8px 4px;color:var(--muted);font-size:13px;line-height:1.5}
+@media(max-width:650px){.screenshot-stack{gap:18px}.screenshot-item{padding:6px}.screenshot-item figcaption{padding:10px 6px 4px}}

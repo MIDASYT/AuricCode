@@ -4,11 +4,13 @@
   "date": "2026-11-04",
   "platform": "windows-x64",
   "bytes": 14222848,
-  "installerUrl": "https://github.com/MIDASYT/AuricCode/releases/download/v0.18.0/Auric-Code-Setup-0.18.0.exe",
+  "installerUrl": "https://github.com/MIDASYT/AuricCode-Web/releases/download/v0.18.0/Auric-Code-Setup-0.18.0.exe",
   "sha256": "710f60efaec6a7acac1f1f80e1fe18c8a0ec7cac0db67897ffdcbd6ba005307e",
   "installerSha256": "710f60efaec6a7acac1f1f80e1fe18c8a0ec7cac0db67897ffdcbd6ba005307e",
   "workerVersion": "0.17.0",
   "notes": "Cuenta Auric opcional, sincronización privada por cuenta y Remote con autorización desde PC.",
-  "publicDownloads": false,
-  "distribution": "pending-public-download"
+  "publicDownloads": true,
+  "distribution": "official-public-release",
+  "publicDownloadUrl": "https://github.com/MIDASYT/AuricCode-Web/releases/download/v0.18.0/Auric-Code-Setup-0.18.0.exe",
+  "releaseStatus": "Versión pública 0.18.0. La versión de desarrollo posterior no ha sido publicada como estable."
 }

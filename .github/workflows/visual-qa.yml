@@ -6,6 +6,8 @@ on:
       - 'index.html'
       - 'dist/index.html'
       - 'dist/style.css'
+      - 'dist/app.js'
+      - 'dist/release.json'
       - 'style.css'
       - 'assets/**'
       - 'dist/assets/**'
@@ -39,6 +41,16 @@ jobs:
           await page.locator('img').evaluateAll(nodes=>Promise.all(nodes.map(async i=>{i.loading='eager';try{await i.decode()}catch{}})));
           const images=await page.locator('img').evaluateAll(nodes=>nodes.filter(i=>!i.complete||i.naturalWidth===0).map(i=>({src:i.getAttribute('src')?.slice(0,100),complete:i.complete,width:i.naturalWidth})));
             if(images.length)throw Error('Broken images: '+JSON.stringify(images));
+            const imagesAspect=await page.locator('.screenshot-item img').evaluateAll(imgs=>imgs.map(img=>{
+              const rect=img.getBoundingClientRect();
+              return {relativeError: Math.abs((rect.width/rect.height)-(img.naturalWidth/img.naturalHeight))/(img.naturalWidth/img.naturalHeight), naturalWidth:img.naturalWidth};
+            }));
+            if(imagesAspect.length!==2 || imagesAspect.some(i=>i.naturalWidth===0 || i.relativeError>0.012))throw Error('Screenshot aspect ratio was distorted: '+JSON.stringify(imagesAspect));
+            const columns=await page.locator('.screenshot-stack').evaluate(e=>getComputedStyle(e).gridTemplateColumns.trim().split(/\\s+/).length);
+            if(columns!==1)throw Error('Screenshots must be stacked vertically.');
+            const release=JSON.parse((await import('node:fs')).readFileSync('dist/release.json','utf8'));
+            const download=await page.locator('[data-platform="windows"]').getAttribute('href');
+            if(release.publicDownloads!==true || download!==release.installerUrl)throw Error('Public installer URL does not match manifest.');
             if(!await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2))throw Error('Horizontal overflow '+item.name);
             await page.screenshot({path:'screenshots/AuricCode-'+item.name+'-website.png',fullPage:true});
             await page.close();

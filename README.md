@@ -1,11 +1,13 @@
-# AuricCode-Web — sitio de trabajo privado
+# AuricCode — Sitio oficial
 
-**Repositorio privado de trabajo.** El sitio real se aloja en **Firebase Hosting**, no en GitHub Pages. Proyecto Firebase comunicado: `auric-apps-cloud`. Site ID: `auric-code-web`. Dominio esperado: `https://auric-code-web.web.app/` (verificar en Firebase después de desplegar).
+Web de AuricCode para Windows, publicada mediante Firebase Hosting en https://auric-code-web.web.app/.
 
-Fuente web: `dist/` y sus archivos `index.html`, `instalar.html`, `style.css`, `app.js`, `assets/`, `release.json`. La carpeta `archivo/` no se sirve públicamente y contiene material histórico. El despliegue real se realiza desde el workflow centralizado en `MIDASYT/AuricAIPrivado/.github/workflows/deploy-shared-firebase.yml`, que tiene acceso autorizado a las dos webs privadas y a las credenciales protegidas de Firebase. Un commit en este repositorio privado de trabajo no equivale a un despliegue: es necesario ejecutar el workflow central. No reactivar Pages.
+## Descargas
 
-**Reglas de imagen y descarga:** tomar como referencia exacta la estructura y diseño de la web de AuricTurrets (solo lectura, jamás modificar). Portada con botones que van a `#descargar`; tarjetas por SO que ofrecen descarga directa solo si el EXE/APK está públicamente alojado, firmado/verificado, no mediante GitHub Releases privados; guía de instalación independiente; iconos oficiales; capturas REALES de las apps. No usar como capturas de app las capturas de navegador de la web. AuricCode y AuricAI deben ser coherentes. AuricQR permanece público en GitHub Pages.
+La versión pública es **0.18.0** y se distribuye mediante [GitHub Releases](https://github.com/MIDASYT/AuricCode-Web/releases/tag/v0.18.0). El manifiesto `dist/release.json` incluye el instalador oficial, su tamaño y SHA-256. Las versiones de desarrollo requieren pruebas adicionales antes de publicarse como estables.
 
-**Distribución:** ahora los repositorios de las webs AuricAI-Web y AuricCode-Web son privados. Los enlaces antiguos a `MIDASYT/AuricAI` y `MIDASYT/AuricCode` NO constituyen descargas públicas. Marcar `publicDownloads=false` mientras no exista un canal de binarios público verificable. No comprometer credenciales, tokens ni datos de cuentas en HTML, JS o release.json.
+## Estructura
 
-La implementación y el contexto privado de las aplicaciones están en `MIDASYT/AuricAIPrivado/versiones/0.2.0/` y `MIDASYT/AuricCodePrivado/versiones/0.19.0/`. Claude devolverá ZIP que ChatGPT integrará, nunca debe editar repositorios.
+`dist/index.html` es la portada; `dist/instalar.html` contiene la guía; `dist/app.js` valida el enlace de descarga; `dist/style.css` define el diseño; `dist/assets/` contiene imágenes reales y recursos del sitio.
+
+Este repositorio público contiene los materiales del sitio y sus recursos públicos. El desarrollo privado de la aplicación se mantiene por separado.
