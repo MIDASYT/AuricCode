@@ -35,7 +35,9 @@ jobs:
             const page=await browser.newPage({viewport:{width:item.width,height:item.height},isMobile:item.mobile,hasTouch:item.mobile,deviceScaleFactor:1});
             await page.goto('http://127.0.0.1:8999/',{waitUntil:'networkidle'});
             for(const selector of checks)if(!await page.locator(selector).count())throw Error('Missing element '+selector);
-            const images=await page.locator('img').evaluateAll(nodes=>nodes.filter(i=>!i.complete||i.naturalWidth===0).map(i=>i.getAttribute('src')?.slice(0,100)));
+            // Fuerza la carga de capturas diferidas antes de verificar todos los recursos.
+          await page.locator('img').evaluateAll(nodes=>Promise.all(nodes.map(async i=>{i.loading='eager';try{await i.decode()}catch{}})));
+          const images=await page.locator('img').evaluateAll(nodes=>nodes.filter(i=>!i.complete||i.naturalWidth===0).map(i=>({src:i.getAttribute('src')?.slice(0,100),complete:i.complete,width:i.naturalWidth})));
             if(images.length)throw Error('Broken images: '+JSON.stringify(images));
             if(!await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2))throw Error('Horizontal overflow '+item.name);
             await page.screenshot({path:'screenshots/AuricCode-'+item.name+'-website.png',fullPage:true});
